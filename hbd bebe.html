@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday, My Bebe!</title>
+    <style>
+        :root {
+            --bg-color: #ffeef2;
+            --card-bg: #ffffff;
+            --text-color: #4a4a4a;
+            --accent-color: #ff6b8b;
+            --accent-hover: #ff477e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            animation: heartBeat 2s infinite;
+        }
+
+        /* Interactive Flip Card */
+        .card-container {
+            width: 350px;
+            height: 450px;
+            perspective: 1000px;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 20px;
+        }
+
+        .card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--card-bg);
+        }
+
+        .card-front {
+            border: 3px dashed var(--accent-color);
+        }
+
+        .card-front .cake-icon {
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .card-front p {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            background: linear-gradient(135deg, #ffffff 0%, #fff5f7 100%);
+            justify-content: space-between;
+            border: 1px solid #ffe3e8;
+        }
+
+        .letter {
+            text-align: center;
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-top: 20px;
+        }
+
+        .signature {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        /* Floating Hearts */
+        .heart {
+            position: absolute;
+            color: var(--accent-color);
+            opacity: 0.6;
+            pointer-events: none;
+            animation: floatUp 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <!-- ✏️ EDIT HER NAME HERE -->
+        <h1>Happy Birthday My Bebe! 💖</h1>
+        <p>Click the card to open your surprise</p>
+    </div>
+
+    <div class="card-container" onclick="toggleCard()">
+        <div class="card" id="birthdayCard">
+            <!-- Front of the Card -->
+            <div class="card-front">
+                <div class="cake-icon">🎂</div>
+                <p>Made with love, just for you ✨</p>
+            </div>
+            
+            <!-- Back of the Card (The Love Letter) -->
+            <div class="card-back">
+                <!-- ✏️ CUSTOMIZE YOUR MESSAGE HERE -->
+                <div class="letter">
+                    <p>To my favorite human being, 🌸</p>
+                    <br>
+                    <p>Every single day with you feels incredible, but today is extra special. Thank you for bringing so much light, laughter, and love into my life. I am incredibly lucky to have you by my side.</p>
+                    <br>
+                    <p>May your day be just as beautiful and bright as your smile.</p>
+                    <p>PS: Sorry if di ako nakagawa ng handmade letter today but i practice my stuff and include this one hehe.</p>
+                </div>
+                <!-- ✏️ SIGN YOUR NAME HERE -->
+                <div class="signature">Forever Yours, Alvene ❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Flip card toggle
+        function toggleCard() {
+            document.getElementById('birthdayCard').classList.toggle('flipped');
+        }
+
+        // Generate floating background hearts
+        function createHearts() {
+            const heartSymbols = ['❤️', '💖', '✨', '🌸', '💕'];
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart';
+                    heart.innerText = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+                    heart.style.animationDuration = Math.random() * 3 + 4 + 's';
+                    heart.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(heart);
+                    
+                    // Remove heart element after animation ends
+                    setTimeout(() => heart.remove(), 7000);
+                }, i * 300);
+            }
+        }
+
+        // Keep generating hearts continuously
+        createHearts();
+        setInterval(createHearts, 6000);
+    </script>
+</body>
+</html>
